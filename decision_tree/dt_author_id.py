@@ -37,6 +37,7 @@ pre=clf.predict(features_test)
 #       sara=sara+1
 # print("Chris",chris)
 # print("Sarah",sara)
+print(len(features_train[0]))
 #########################################################
 
 

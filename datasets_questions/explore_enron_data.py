@@ -51,3 +51,41 @@ enron_data = pickle.load(open("../final_project/final_project_dataset.pkl", "r")
 
 #get exercised_stock_options by Jeffrey K Skilling
 #print(enron_data['SKILLING JEFFREY K']['exercised_stock_options'])
+
+#print(enron_data['SKILLING JEFFREY K']['total_payments'])
+#print(enron_data['FASTOW ANDREW S']['total_payments'])
+#print(enron_data['LAY KENNETH L']['total_payments'])
+
+#get salary that is not 'NaN' in the pkl
+# poiCount_poi=0
+# poiCount_salary=0
+# poiCount_email=0
+# poiCount_payment=0.0
+# poiCount_payment_poi=0.0
+# poiCount=0.0
+# for person in enron_data.values():
+#     poiCount=poiCount+1
+#     poiValue = person['poi']
+#     poiValue_salary = person['salary']
+#     poiValue_email = person['email_address']
+#     poiValue_payment = person['total_payments']
+#     # if poiValue_salary!='NaN':
+#     #     poiCount_salary=poiCount_salary+1
+#     # if poiValue_email!='NaN':
+#     #     poiCount_email = poiCount_email + 1
+#     if poiValue == True:
+#         poiCount_poi = poiCount_poi + 1
+#         if poiValue_payment == 'NaN':
+#             poiCount_payment_poi = poiCount_payment_poi + 1
+#     if poiValue_payment == 'NaN':
+#         poiCount_payment = poiCount_payment + 1
+#
+# # print(poiCount_salary)
+# # print(poiCount_email)
+# # print(poiCount_payment)
+# print(poiCount_poi)
+# print(poiCount_payment)
+# print(poiCount_payment_poi)
+# # print(poiCount)
+# # print(poiCount_payment/poiCount)
+# # print(poiCount_payment_poi/poiCount)

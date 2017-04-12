@@ -29,7 +29,7 @@ target, features = targetFeatureSplit( data )
 from sklearn.cross_validation import train_test_split
 feature_train, feature_test, target_train, target_test = train_test_split(features, target, test_size=0.5, random_state=42)
 train_color = "b"
-test_color = "b"
+test_color = "r"
 
 
 
@@ -38,10 +38,23 @@ test_color = "b"
 ### plots it correctly. Don't forget to change the test_color above from "b" to
 ### "r" to differentiate training points from test points.
 
+from sklearn import datasets, linear_model
+import numpy as np
+# Create linear regression object
+reg = linear_model.LinearRegression()
+
+# Train the model using the training sets
+reg.fit(feature_train,target_train)
 
 
-
-
+# The slope/coefficients and Intercept
+print('Coefficients: \n', reg.coef_)
+print('Intercept: \n', reg.intercept_)
+# The mean squared error
+print("Mean squared error: %.2f"
+      % np.mean((reg.predict(feature_test) - target_test) ** 2))
+# Explained variance score: 1 is perfect prediction
+print('Variance score: %.2f' % reg.score(feature_test,target_test))
 
 
 
@@ -64,7 +77,13 @@ try:
     plt.plot( feature_test, reg.predict(feature_test) )
 except NameError:
     pass
+reg.fit(feature_test, target_test)
+plt.plot(feature_train, reg.predict(feature_train), color="g")
 plt.xlabel(features_list[1])
 plt.ylabel(features_list[0])
 plt.legend()
 plt.show()
+
+
+# The new slope/coefficients and Intercept after removing the outlier
+print('New Coefficients: \n', reg.coef_)

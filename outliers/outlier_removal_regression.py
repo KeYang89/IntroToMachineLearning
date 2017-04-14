@@ -26,7 +26,18 @@ ages_train, ages_test, net_worths_train, net_worths_test = train_test_split(ages
 ### fill in a regression here!  Name the regression object reg so that
 ### the plotting code below works, and you can see what your regression looks like
 
+from sklearn import datasets, linear_model
+import numpy as np
+# Create linear regression object
+reg = linear_model.LinearRegression()
 
+# Train the model using the training sets
+reg.fit(ages_train,net_worths_train)
+
+
+# The slope/coefficients and Intercept
+print('Coefficients: \n', reg.coef_)
+print('Intercept: \n', reg.intercept_)
 
 
 
@@ -49,6 +60,8 @@ cleaned_data = []
 try:
     predictions = reg.predict(ages_train)
     cleaned_data = outlierCleaner( predictions, ages_train, net_worths_train )
+    #print cleaned_data
+    #print len(cleaned_data)
 except NameError:
     print "your regression object doesn't exist, or isn't name reg"
     print "can't make predictions to use in identifying outliers"
@@ -81,4 +94,7 @@ if len(cleaned_data) > 0:
 
 else:
     print "outlierCleaner() is returning an empty list, no refitting to be done"
+
+print('Coefficients: \n', reg.coef_)
+print('Intercept: \n', reg.intercept_)
 

@@ -7,7 +7,12 @@ import sys
 
 sys.path.append( "../tools/" )
 from parse_out_email_text import parseOutText
-
+from nltk.stem.snowball import SnowballStemmer
+stemmer = SnowballStemmer("english")
+from nltk.corpus import stopwords
+sw = stopwords.words("english")
+from sklearn.feature_extraction.text import CountVectorizer
+vectorizer = CountVectorizer(min_df=1,stop_words='english')
 """
     Starter code to process the emails from Sara and Chris to extract
     the features and get the documents ready for classification.
@@ -34,31 +39,48 @@ word_data = []
 ### can take a long time
 ### temp_counter helps you only look at the first 200 emails in the list so you
 ### can iterate your modifications quicker
-temp_counter = 0
+#temp_counter = 0
 
 
 for name, from_person in [("sara", from_sara), ("chris", from_chris)]:
     for path in from_person:
         ### only look at first 200 emails when developing
         ### once everything is working, remove this line to run over full dataset
-        temp_counter += 1
-        if temp_counter < 200:
+        #temp_counter += 1
+        #if temp_counter < 200:
             path = os.path.join('..', path[:-1])
-            print path
+            #print path
             email = open(path, "r")
 
             ### use parseOutText to extract the text from the opened email
-
+            emailtext=parseOutText(email)
+            #print emailtext
+            for removeword in ["sara", "shackleton", "chris", "germani"]:
+                emailtext=emailtext.replace(removeword,"")
+            #print emailtext
             ### use str.replace() to remove any instances of the words
             ### ["sara", "shackleton", "chris", "germani"]
-
+            # for stopword in sw:
+            #     emailtext = emailtext.replace(stopword, "")
             ### append the text to word_data
+            word_data.append(emailtext)
+
 
             ### append a 0 to from_data if email is from Sara, and 1 if email is from Chris
-
-
+            if from_sara:
+                from_data.append(0)
+            if from_chris:
+                from_data.append(1)
             email.close()
+#print word_data[152]
+#print word_data
 
+
+X = vectorizer.fit_transform(word_data)
+analyze = vectorizer.build_analyzer()
+#analyze(word_data)
+#print len(vectorizer.get_feature_names())
+print vectorizer.get_feature_names()[34597]
 print "emails processed"
 from_sara.close()
 from_chris.close()

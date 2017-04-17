@@ -55,7 +55,7 @@ for name, from_person in [("sara", from_sara), ("chris", from_chris)]:
             ### use parseOutText to extract the text from the opened email
             emailtext=parseOutText(email)
             #print emailtext
-            for removeword in ["sara", "shackleton", "chris", "germani"]:
+            for removeword in ["sara", "shackleton", "chris", "germani","sshacklensf","cgermannsf"]:
                 emailtext=emailtext.replace(removeword,"")
             #print emailtext
             ### use str.replace() to remove any instances of the words
@@ -67,9 +67,9 @@ for name, from_person in [("sara", from_sara), ("chris", from_chris)]:
 
 
             ### append a 0 to from_data if email is from Sara, and 1 if email is from Chris
-            if from_sara:
+            if name == "sara":
                 from_data.append(0)
-            if from_chris:
+            else:
                 from_data.append(1)
             email.close()
 #print word_data[152]
@@ -80,7 +80,7 @@ X = vectorizer.fit_transform(word_data)
 analyze = vectorizer.build_analyzer()
 #analyze(word_data)
 #print len(vectorizer.get_feature_names())
-print vectorizer.get_feature_names()[34597]
+#print vectorizer.get_feature_names()[34597]
 print "emails processed"
 from_sara.close()
 from_chris.close()
